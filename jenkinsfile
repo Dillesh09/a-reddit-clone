@@ -21,10 +21,10 @@ pipeline {
     }
     stage ("Chekcout from Git"){
       steps{
-        git branch : 'main' , url 'https://github.com/Dillesh09/a-reddit-clone.git'
+        git branch: 'main', url: 'https://github.com/Dillesh09/a-reddit-clone.git'
       }
     }
-    stage ("Sonar qube analysis") {
+    stage ("Sonarqube analysis") {
       steps {
         withSonarQubeEnv ('SonarQube-Server'){
           sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName-Reddit-Clone-CI \
@@ -35,7 +35,7 @@ pipeline {
     stage ("Quality Gate"){
       steps {
         script {
-          waitForQualityGate abortPipeline false, credentialsId: 'Sonar'
+            waitForQualityGate abortPipeline: false, credentialsId: 'Sonar'
         }
       }
     }
